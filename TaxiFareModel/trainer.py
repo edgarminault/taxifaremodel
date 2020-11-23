@@ -2,7 +2,7 @@ import time
 import warnings
 
 from TaxiFareModel.data import get_data, clean_df
-from TaxiFareModel.utils import compute_rmse, simple_time_tracker
+from TaxiFareModel.utils import compute_rmse
 from TaxiFareModel.encoders import TimeFeaturesEncoder, DistanceTransformer, DIST_ARGS
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LinearRegression, Lasso, Ridge
@@ -53,7 +53,6 @@ class Trainer(object):
         -----------------------
         OUTPUT : appropriate model with regard to the key word argument.
         """
-        self.estimator = self.kwargs.get("estimator")
 
         if self.estimator == "Linear":
             model = LinearRegression()
@@ -66,6 +65,9 @@ class Trainer(object):
 
         elif self.estimator == "Lasso":
             model = Lasso()
+
+        elif self.estimator == "xgboost":
+            model = XGBRegressor()
 
         return model
 
@@ -83,7 +85,7 @@ class Trainer(object):
         )
 
         pipe_distance = make_pipeline(
-            DistanceTransformer(self.distance_type), StandardScaler()
+            DistanceTransformer(), StandardScaler()
         )
 
         features_encoder = ColumnTransformer(
@@ -99,6 +101,8 @@ class Trainer(object):
             remainder="drop",
         )
 
+        self.get_estimator()
+
         pipe = Pipeline(
             steps=[
                 ("features", features_encoder),
@@ -109,13 +113,11 @@ class Trainer(object):
 
         return self
 
-    @simple_time_tracker
     def train(self):
         tic = time.time()
         self.set_pipeline()
         self.pipeline.fit(self.X_train, self.y_train)
 
-    @simple_time_tracker
     def evaluate(self):
         if self.pipeline is None:
             raise ("Cannot evaluate an empty pipeline")
@@ -136,7 +138,7 @@ if __name__ == "__main__":
     t = Trainer(
         X=X_train,
         y=y_train,
-        estimator="xgboostt",
+        estimator="xgboost",
         distance_transformer_input=DIST_ARGS,
     )
     t.train()

@@ -1,0 +1,4 @@
+artifact_location: file:///Users/edgarminault/code/edgarminault/502-data-challenges/07-Data-Engineering/03-ML-Iteration/03-Iterate-with-MLFlow/mlruns/1
+experiment_id: '1'
+lifecycle_stage: active
+name: model_experiment
