@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/edgarminault/code/edgarminault/502-data-challenges/07-Data-Engineering/03-ML-Iteration/03-Iterate-with-MLFlow/mlruns/1/d91e89ad0a9746a98f3a63f01bc2a75d/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: d91e89ad0a9746a98f3a63f01bc2a75d
+run_uuid: d91e89ad0a9746a98f3a63f01bc2a75d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1605285113382
+status: 1
+tags: []
+user_id: unknown
